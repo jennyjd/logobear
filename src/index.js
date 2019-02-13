@@ -6,6 +6,7 @@ import createHistory from 'history/createBrowserHistory';
 import configureStore from './store';
 import Routes from './routes';
 
+import 'normalize.css/normalize.css';
 import './index.css';
 
 const store = configureStore();
