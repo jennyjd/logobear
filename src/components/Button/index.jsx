@@ -20,4 +20,9 @@ Button.propTypes = {
   onClick: PropTypes.func,
 };
 
+Button.defaultProps = {
+  color: 'purple',
+  onClick: () => {},
+};
+
 export default Button;

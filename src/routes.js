@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Router, Route } from 'react-router';
+import { Router, Route, Switch, Redirect } from 'react-router';
 
 import Layout from './views/layout';
 import LogIn from './views/pages/LogIn';
@@ -7,7 +7,10 @@ import LogIn from './views/pages/LogIn';
 const Routes = ({history}) => (
   <Router history={history}>
     <Layout>
-      <Route path="/login" component={LogIn} />
+      <Switch>
+        <Route path="/login" component={LogIn} />
+        <Redirect from="*" to="/login" />
+      </Switch>
     </Layout>
   </Router>
 );
