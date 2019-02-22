@@ -1,31 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import { logIn } from '../../../actions';
+import { requestLogIn } from '../../../actions';
 import Button from '../../../components/Button';
 import Form from '../../../components/Form';
 import bearFace from '../../../assets/images/bear-face.svg';
 
 import * as styles from './styles.module.scss';
 
-const LogIn = ({ onLogIn }) => {
+const LogIn = (props) => {
+  if (props.isAuthentificated) {
+    console.log('props', props);
+    props.history.push('/');
+  }
+
   return (
-    <div className={styles.login}>
-      <Form className={styles.form}>
-        <img alt="bear" src={bearFace} className={styles.icon} />
-        <Button color="white" onClick={onLogIn}>
-          Let me in
-        </Button>
-      </Form>
-    </div>
+    <Form className={styles.form}>
+      <img alt="bear" src={bearFace} className={styles.icon} />
+      <Button color="white" onClick={props.onLogIn}>
+        Let me in
+      </Button>
+    </Form>
   );
 }
 
 LogIn.propTypes = {
-  logIn: PropTypes.func.isRequired,
+  onLogIn: PropTypes.func.isRequired,
 };
 
-export default connect(
-  () => ({}),
-  { onLogIn: logIn },
-)(LogIn);
+export default withRouter(connect(
+  (state) => ({isAuthentificated: state.user.isAuthentificated}),
+  { onLogIn: requestLogIn },
+)(LogIn));
