@@ -7,10 +7,7 @@ import Layout from './views/layout';
 import LogIn from './views/pages/LogIn';
 import { requestGetUser } from './actions/index';
 import PrivateRoute from './components/PrivateRoute';
-
-const RunningList = () => (
-  <div>RunningList</div>
-);
+import Main from './views/pages/Main';
 
 class App extends React.Component {
   componentDidMount() {
@@ -22,7 +19,7 @@ class App extends React.Component {
       <Layout>
         <Switch>
           <Route exact path="/login" component={LogIn} />
-          <PrivateRoute exact path="/" component={RunningList} />
+          <PrivateRoute exact path="/" component={Main} />
         </Switch>
       </Layout>
     );

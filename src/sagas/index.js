@@ -38,18 +38,35 @@ function* getUser() {
     };
 
     const response = yield call(axios, params);
-    console.log('response', response);  
     if (response.error) {
       throw response.error;
     }
     yield put(actions.successGetUser(response.data));
   } catch (error) {
     yield put(actions.failedGetUser(error));
-    
+  }
+}
+
+function* getJogs() {
+  try {
+    const params = {
+      method: 'GET',
+      url: `${URL}/data/sync`,
+      headers: { 'Authorization': `Bearer ${Cookies.get('token')}` },
+    };
+
+    const response = yield call(axios, params);
+    if (response.error) {
+      throw response.error;
+    }
+    yield put(actions.successGetJogs(response.data.response.jogs));
+  } catch (error) {
+    yield put(actions.failedGetJogs(error));
   }
 }
 
 export default function*() {
   yield takeLatest('LOG_IN', logIn);
   yield takeLatest('GET_USER', getUser);
+  yield takeLatest('GET_JOGS', getJogs);
 }
